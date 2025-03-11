@@ -1,0 +1,64 @@
+packages:
+  all:
+    target: [x86_64_v3]
+    require: '%gcc@11.4.0 target=x86_64_v3'
+    providers:
+      blas: [openblas]
+      lapack: [openblas]
+      tbb: [intel-tbb]
+    variants: +mpi
+
+  binutils:
+    variants: +ld +gold +headers +libiberty ~nls
+  blas:
+    require: openblas
+  cmake:
+    require:
+    - '~qtgui'
+    - '%gcc@11.4.0 target=x86_64_v3'
+  gmake:
+    require:
+    - '~guile'
+    - '%gcc@11.4.0 target=x86_64_v3'
+  hdf5:
+    variants: +fortran +hl +shared
+  lapack:
+    require: openblas
+  libfabric:
+    variants: fabrics=sockets,tcp,udp,rxm
+  libunwind:
+    variants: +pic +xz
+  openblas:
+    variants: threads=openmp
+  paraview:
+    variants: +qt +examples
+  raja:
+    variants: +plugins
+  tbb:
+    require: intel-tbb
+  trilinos:
+    variants: +amesos +amesos2 +anasazi +aztec +belos +boost +epetra +epetraext
+      +ifpack +ifpack2 +intrepid +intrepid2 +isorropia +kokkos +ml +minitensor +muelu
+      +nox +piro +phalanx +rol +rythmos +sacado +stk +shards +shylu +stokhos +stratimikos
+      +teko +tempus +tpetra +trilinoscouplings +zoltan +zoltan2 +superlu-dist gotype=long_long
+  vtk-m:
+    require:
+    - '+examples'
+    - '%gcc@11.4.0 target=x86_64_v3'
+
+  # externals
+  python:
+    prefer:
+    - "@3.10.12"
+    externals:
+    - spec: python@3.10.12+bz2+crypt+ctypes+dbm+lzma+pyexpat+pythoncmd+readline+sqlite3+ssl~tkinter+uuid+zlib
+      prefix: /usr
+  mpi:
+    require: mpich
+  mpich:
+    require: '@4.2.3 ~wrapperrpath ~hwloc target=x86_64_v3'
+#   buildable: false
+#   externals:
+#   - spec: mpich@4.2.3 ~argobots~cuda+fortran~hwloc+hydra+libxml2+pci~rocm+romio~slurm~vci~verbs~wrapperrpath~xpmem
+#       build_system=autotools datatype-engine=auto device=ch4 netmod=ofi pmi=default
+#     prefix: /usr/local/mpich/install/mpich
