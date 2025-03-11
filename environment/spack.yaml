@@ -2,6 +2,12 @@ spack:
   include:
   - ../_config/packages.yaml
   - ../_config/compilers.yaml
+  
+  mirrors:
+    e4s:
+      url: s3://cache.e4s.io/reproducer
+      autopush: true
+      signed: true
 
   view: false
 
@@ -153,8 +159,4 @@ spack:
   # - libpressio +bitgrooming +bzip2 ~cuda ~cusz +fpzip +hdf5 +libdistributed +lua +openmp +python +sz +sz3 +unix +zfp # py-numcodecs-0.15.0: ??
   # - nvhpc                           # skipped, cannot redistribute
   # - warpx                           # warpx-25.03: make: *** No rule to make target 'pip_wheel'.  Stop.
-  mirrors:
-    e4s:
-      url: s3://cache.e4s.io/reproducer
-      autopush: true
-      signed: true
+
